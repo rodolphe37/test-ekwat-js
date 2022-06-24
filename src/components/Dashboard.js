@@ -57,24 +57,23 @@ export const Dashboard = () => {
     data,
   } = useFetchData();
 
+  const handleSelectedPointOfDelivery = (id, type) => {
+    fetchData(podList[id].pointOfDelivery);
+    setFilterSelected(`${type}`);
+  };
+
   return (
     <Container>
       <FilterBarContainer>
         <ButtonContainer
           selected={filterSelected === "electricity"}
-          onClick={() => {
-            fetchData(podList[0].pointOfDelivery); // podList array's first element is electricity
-            setFilterSelected("electricity");
-          }}
+          onClick={() => handleSelectedPointOfDelivery(0, "electricity")}
         >
           Electricité
         </ButtonContainer>
         <ButtonContainer
           selected={filterSelected === "gas"} // podList array's second element is gas
-          onClick={() => {
-            fetchData(podList[1].pointOfDelivery);
-            setFilterSelected("gas");
-          }}
+          onClick={() => handleSelectedPointOfDelivery(1, "gas")}
         >
           Gaz
         </ButtonContainer>
