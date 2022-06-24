@@ -9,10 +9,14 @@ const useFetchData = () => {
   const [yearSelected, setYearSelected] = useState("all");
   const [years, setYear] = useState([]);
 
-  useEffect(() => {
-    fetch(`${BASE_URL}/meters`)
+  const fetchPodList = async () => {
+    await fetch(`${BASE_URL}/meters`)
       .then((response) => response.json())
       .then((data) => setPodList(data));
+  };
+
+  useEffect(() => {
+    fetchPodList();
   }, []);
 
   const filterByYear = (data, yearSelected) => {
@@ -26,8 +30,8 @@ const useFetchData = () => {
   console.log("yearSelected", yearSelected);
   console.log("data", data);
 
-  const fetchData = (pointOfDelivery) =>
-    fetch(`${BASE_URL}/${pointOfDelivery}`)
+  const fetchData = async (pointOfDelivery) =>
+    await fetch(`${BASE_URL}/${pointOfDelivery}`)
       .then((response) => response.json())
       .then((data) => {
         setData(filterByYear(data, yearSelected));
